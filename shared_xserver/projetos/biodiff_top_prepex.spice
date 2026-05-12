@@ -1,0 +1,13 @@
+* NGSPICE file created from biodiff_top.ext - technology: ihp-sg13g2
+
+.subckt biodiff_top VIN_N VIN_P VOUT VSS
+X0 VSS VIN_P VOUT VSS sg13_lv_nmos ad=0.64p pd=3.2u as=0.64p ps=3.2u w=3.2u l=0.8u
+X1 VOUT VIN_N VSS VSS sg13_lv_nmos ad=0.64p pd=3.2u as=0.64p ps=3.2u w=3.2u l=0.8u
+C0 VOUT VIN_P 0.2249f
+C1 VIN_N VIN_P 0.02352f
+C2 VOUT VIN_N 0.25607f
+C3 VOUT VSS 1.7884f
+C4 VIN_P VSS 10.0302f
+C5 VIN_N VSS 10.0136f
+.ends
+
