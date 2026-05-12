@@ -96,6 +96,7 @@ XAUTHORITY_MOUNT := $(if $(XAUTHORITY_HOST),-v $(XAUTHORITY_HOST):$(XAUTHORITY_C
 
 # Build XAUTHORITY environment variable only if mount exists
 XAUTHORITY_ENV := $(if $(XAUTHORITY_HOST),-e XAUTHORITY=$(XAUTHORITY_CONTAINER),)
+DRI_DEVICE := $(shell if [ -e /dev/dri ]; then printf '%s' "--device=/dev/dri:/dev/dri"; fi)
 
 # Since it uses local xserver, --net=host is required and DISPLAY should be equal to host
 
@@ -113,7 +114,7 @@ DOCKER_RUN=docker run -it $(_DOCKER_ROOT_USER) \
 	-e PULSE_SERVER \
 	-e USER_ID=$(USER_ID) \
 	-e USER_GROUP=$(USER_GROUP) \
-	--device=/dev/dri:/dev/dri \
+	$(DRI_DEVICE) \
 	-p $(VNC_PORT):5901 \
 	-p $(WEBSERVER_PORT):80 \
 	--name $(CONTAINER_NAME) 
