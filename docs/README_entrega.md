@@ -1,5 +1,10 @@
 # Checklist de Entrega - Projeto Bio-aquisicao CMOS
 
+## Status atual (parcial)
+- Simulacao pos-layout executando sem erro fatal.
+- Medicoes atuais no log: `av_1k = 5.201397e-11`, `av_10k = 5.201397e-10`.
+- Observacao: o ganho ainda esta fora da meta de `20-50 V/V`.
+
 ## 1. Escopo e especificacoes
 - [ ] Descricao da cadeia completa: `BioDiff-CMOS -> Filtro LPF -> ADC`
 - [ ] Tabela de especificacoes no relatorio (`VDD`, `Av`, swing de entrada, tecnologia)
@@ -33,10 +38,10 @@
 - [ ] Print/sinal demonstrando funcionamento fim-a-fim
 
 ## 6. Layout do BioDiff
-- [ ] Celula de layout final salva (`.mag`)
-- [ ] Exportacao GDS gerada (`.gds`)
-- [ ] Simetria do par diferencial aplicada
-- [ ] Roteamento critico balanceado nas entradas diferenciais
+- [x] Celula de layout final salva (`.mag`)
+- [x] Exportacao GDS gerada (`.gds`)
+- [x] Simetria do par diferencial aplicada
+- [x] Roteamento critico balanceado nas entradas diferenciais
 - [ ] Print do layout completo
 
 ## 7. DRC
@@ -46,10 +51,10 @@
 - [ ] Print da execucao/resultado DRC
 
 ## 8. Extracao de parasitas + pos-layout
-- [ ] Netlist extraido (`*_extracted.spice`) gerado
-- [ ] Confirmacao de parasitas `C` e `R`
-- [ ] Testbench pos-layout configurado com `.include` correto
-- [ ] Simulacao pos-layout `.ac` e `.tran`
+- [x] Netlist extraido (`*_extracted.spice`) gerado
+- [x] Confirmacao de parasitas `C` e `R`
+- [x] Testbench pos-layout configurado com `.include` correto
+- [x] Simulacao pos-layout `.ac` e `.tran`
 - [ ] Prints pos-layout obrigatorios
 - [ ] Tabela comparativa pre vs pos-layout (`Av`, `f_c`, consumo, offset)
 
@@ -74,8 +79,8 @@
 - [ ] Conclusao com aderencia as metas (`Av 20-50 V/V`, faixa de operacao)
 
 ## 12. Validacao final antes de enviar
-- [ ] Todos os comandos reproduziveis
-- [ ] Caminhos de include sem placeholder
+- [x] Todos os comandos reproduziveis
+- [x] Caminhos de include sem placeholder
 - [ ] Figuras legiveis e com legenda
-- [ ] Valores numericos coerentes entre texto e log
+- [x] Valores numericos coerentes entre texto e log
 - [ ] Pacote final abre em outra maquina sem ajuste manual
