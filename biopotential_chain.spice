@@ -1,0 +1,37 @@
+** sch_path: /home/designer/shared/projetos/biopotential_chain.sch
+
+* BIOPOTENTIAL CHAIN
+.lib /opt/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib mos_tt
+.lib /opt/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerRES.lib res_typ
+.lib /opt/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerCAP.lib cap_typ
+.include /home/designer/shared/verification/simulations/ihp-sg13g2/biodiff_extracted.spice
+
+.param VDD_VAL=1.8
+.param VCM=0.9
+.param VIN_DIFF=50m
+.option TEMP=27
+.option warn=1
+
+VDD_SRC  VDD   0  {VDD_VAL}
+VINN_SRC VIN_N 0  dc {VCM} ac -0.5 sin({VCM} {VIN_DIFF/2} 1k 0 0 180)
+VINP_SRC VIN_P 0  dc {VCM} ac  0.5 sin({VCM} {VIN_DIFF/2} 1k)
+ITAIL    TAIL  0  DC 20u
+
+XBIODIFF VIN_N VIN_P VOUT_N VOUT_P VDD TAIL 0 biodiff_top
+XRLPF VOUT_P VLPF 0 rhigh w=0.5e-6 l=12e-6 m=1 b=0
+XCLPF VLPF 0 cap_cmim w=20e-6 l=20e-6 m=1
+XMADC_P DOUT VLPF VDD VDD sg13_lv_pmos w=4u l=0.35u ng=1 m=1
+XMADC_N DOUT VLPF 0   0   sg13_lv_nmos w=2u l=0.35u ng=1 m=1
+
+.control
+save all
+op
+ac dec 100 1 100Meg
+let av_mag = abs(v(vout_p))
+meas ac av_1k   find av_mag at=1k
+meas ac av_10k  find av_mag at=10k
+tran 10u 10m
+write biopotential_chain.raw
+.endc
+
+.end

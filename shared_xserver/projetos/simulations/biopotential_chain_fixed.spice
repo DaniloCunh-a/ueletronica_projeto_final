@@ -1,0 +1,101 @@
+** sch_path: /home/designer/shared/projetos/biopotential_chain_fixed.sch
+**.subckt biopotential_chain_fixed
+**** begin user architecture code
+
+blabla
+
+
+
+
+.control
+save all
+
+* ============================================================
+*  1. PONTO DE OPERACAO (.op)
+* ============================================================
+op
+echo ''
+echo ====== PONTO DE OPERACAO ==============================
+echo VDD    = $&v(vdd)    V
+echo VIN_P  = $&v(vin_p)  V
+echo VIN_N  = $&v(vin_n)  V
+echo VOUT_N = $&v(vout_n) V
+echo VOUT_P = $&v(vout_p) V
+echo VLPF   = $&v(vlpf)   V
+echo DOUT   = $&v(dout)   V
+echo TAIL   = $&v(tail)   V
+echo ID(M1) = $&@M1[id]   A
+echo ID(M2) = $&@M2[id]   A
+echo gm(M1) = $&@M1[gm]   A/V
+echo gm(M2) = $&@M2[gm]   A/V
+
+* ============================================================
+*  2. ANALISE AC — resposta em frequencia
+* ============================================================
+ac dec 200 1 100Meg
+
+let av_vout  = abs(v(vout_p))
+let av_vlpf  = abs(v(vlpf))
+
+meas ac Av_1Hz     find av_vout  at=1
+meas ac Av_100Hz   find av_vout  at=100
+meas ac Av_1kHz    find av_vout  at=1k
+meas ac Av_10kHz   find av_vout  at=10k
+meas ac AvLPF_100  find av_vlpf  at=100
+meas ac f3dB_LPF   when av_vlpf = 0.707*AvLPF_100  fall=1
+
+echo ''
+echo ====== RESULTADOS AC ==================================
+echo Av(BioDiff) @ 1Hz    = $&Av_1Hz    V/V
+echo Av(BioDiff) @ 100Hz  = $&Av_100Hz  V/V
+echo Av(BioDiff) @ 1kHz   = $&Av_1kHz   V/V
+echo Av(BioDiff) @ 10kHz  = $&Av_10kHz  V/V
+echo Av(LPF)    @ 100Hz  = $&AvLPF_100 V/V
+echo f-3dB (LPF)          = $&f3dB_LPF  Hz
+echo -------------------------------------------------------
+echo Meta: Av = 20 a 50 V/V
+
+plot db(v(vout_p)) db(v(vlpf))
++ title 'AC: BioDiff-CMOS + Filtro LPF'
++ xlabel 'Frequencia [Hz]' ylabel 'Ganho [dB]'
+
+* ============================================================
+*  3. TRANSIENTE — ECG sintetico 1 kHz, 20 ms
+* ============================================================
+tran 1u 20m
+
+meas tran VP_MAX   max  v(vout_p)  from=2m to=20m
+meas tran VP_MIN   min  v(vout_p)  from=2m to=20m
+meas tran VL_MAX   max  v(vlpf)    from=2m to=20m
+meas tran VL_MIN   min  v(vlpf)    from=2m to=20m
+
+let swing_out = VP_MAX - VP_MIN
+let swing_lpf = VL_MAX - VL_MIN
+
+echo ''
+echo ====== TRANSIENTE =====================================
+echo Swing VOUT_P = $&swing_out V
+echo Swing VLPF   = $&swing_lpf V
+
+plot v(vin_p) v(vin_n)          title 'Entradas: VIN_P e VIN_N'
+plot v(vout_p)                   title 'Saida BioDiff: VOUT_P'
+plot v(vlpf)                     title 'Saida filtro: VLPF'
+plot v(dout) v(dout_buf)         title 'ADC: DOUT e DOUT_BUF'
+
+* ============================================================
+*  4. CONSUMO DE POTENCIA
+* ============================================================
+let I_vdd  = -i(VDD_SRC)
+let P_total = I_vdd * 1.8
+echo ''
+echo ====== CONSUMO ========================================
+echo I_VDD   = $&I_vdd   A
+echo P_total = $&P_total W
+
+write biopotential_chain_fixed.raw
+.endc
+
+
+**** end user architecture code
+**.ends
+.end
