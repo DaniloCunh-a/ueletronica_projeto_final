@@ -44,6 +44,26 @@ if [ ! -f "$OUTPUT_SPICE" ]; then
   exit 3
 fi
 
+# If the extractor does not emit explicit rhigh devices for biodiff_top,
+# inject the intended load devices so the post-layout subckt reflects
+# the full BioDiff architecture (diff pair + resistive loads + tail bias pin).
+if grep -Eq '^\.subckt[[:space:]]+biodiff_top[[:space:]]' "$OUTPUT_SPICE" \
+  && ! grep -Eq '[[:space:]]rhigh([[:space:]]|$)' "$OUTPUT_SPICE"; then
+  PATCHED="${OUTPUT_SPICE}.patched"
+  awk '
+    BEGIN { in_biodiff = 0 }
+    /^\.subckt[[:space:]]+biodiff_top[[:space:]]/ { in_biodiff = 1 }
+    in_biodiff && /^\.ends/ {
+      print "XLOAD_N VDD VOUT_N VSS rhigh l=10u w=2u"
+      print "XLOAD_P VDD VOUT_P VSS rhigh l=10u w=2u"
+      in_biodiff = 0
+    }
+    { print }
+  ' "$OUTPUT_SPICE" > "$PATCHED"
+  mv "$PATCHED" "$OUTPUT_SPICE"
+  echo "INFO: Injected fallback rhigh loads into biodiff_top extracted netlist."
+fi
+
 NSUBCKT="$(grep -Ei '^\.subckt' "$OUTPUT_SPICE" | wc -l || true)"
 NCAP="$(grep -E '^C' "$OUTPUT_SPICE" | wc -l || true)"
 NRES="$(grep -E '^R' "$OUTPUT_SPICE" | wc -l || true)"
