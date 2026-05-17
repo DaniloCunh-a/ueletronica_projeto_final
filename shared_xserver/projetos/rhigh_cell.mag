@@ -1,0 +1,52 @@
+magic
+tech ihp-sg13g2
+magscale 1 2
+timestamp 1778731043
+<< checkpaint >>
+rect -2200 -3086 2200 3086
+<< poly >>
+rect -200 1072 200 1086
+rect -200 1040 -186 1072
+rect 186 1040 200 1072
+rect -200 1000 200 1040
+rect -200 -1040 200 -1000
+rect -200 -1072 -186 -1040
+rect 186 -1072 200 -1040
+rect -200 -1086 200 -1072
+<< polycont >>
+rect -186 1040 186 1072
+rect -186 -1072 186 -1040
+<< xpolyres >>
+rect -200 -1000 200 1000
+<< metal1 >>
+rect -196 1076 196 1077
+rect -196 1020 -186 1076
+rect 186 1020 196 1076
+rect -196 1019 196 1020
+rect -196 -1020 196 -1019
+rect -196 -1076 -186 -1020
+rect 186 -1076 196 -1020
+rect -196 -1077 196 -1076
+<< via1 >>
+rect -186 1072 186 1076
+rect -186 1040 186 1072
+rect -186 1020 186 1040
+rect -186 -1040 186 -1020
+rect -186 -1072 186 -1040
+rect -186 -1076 186 -1072
+<< metal2 >>
+rect -186 1076 186 1085
+rect -186 1011 186 1020
+rect -186 -1020 186 -1011
+rect -186 -1085 186 -1076
+<< labels >>
+rlabel polycont 0 1056 0 1056 0 R1
+port 1 nsew
+rlabel polycont 0 -1056 0 -1056 0 R2
+port 2 nsew
+<< properties >>
+string gencell rhigh
+string library sg13g2
+string MASKHINTS_CONTBAR -200 -1086 200 1086
+string parameters w 2 l 10 m 1 nx 1 wmin 0.50 lmin 0.50 class resistor rho 1360 val 6.8k dummy 0 dw 0.0 term 0.0 sterm 0.0 caplen 0 bar 1 guard 0 glc 1 grc 1 gtc 1 gbc 1 snake 0 full_metal 1 n_guard 0 hv_guard 0 vias 1 viagb 0 viagt 0 viagl 0 viagr 0 doports 1
+<< end >>

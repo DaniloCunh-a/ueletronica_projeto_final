@@ -1,0 +1,10 @@
+magic
+tech ihp-sg13g2
+timestamp 1778731206
+<< checkpaint >>
+rect -100 985 2100 4071
+use rhigh_cell  rhigh_cell_0
+timestamp 1778731043
+transform 1 0 1000 0 1 2528
+box -100 -543 100 543
+<< end >>

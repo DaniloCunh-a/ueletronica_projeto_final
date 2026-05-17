@@ -1,0 +1,10 @@
+* SPICE3 file created from test_rhigh_tied.ext - technology: ihp-sg13g2
+
+X0 P N sub rhigh l=7.64u w=0.4u
+C0 N a_2000_2000# 0.07774f
+C1 B a_2000_2000# 0.07762f
+C2 a_2000_2000# P 0.07774f
+C3 N sub 0.92073f
+C4 B sub 0.40793f
+C5 P sub 0.92073f
+C6 a_2000_2000# sub 7.61175f

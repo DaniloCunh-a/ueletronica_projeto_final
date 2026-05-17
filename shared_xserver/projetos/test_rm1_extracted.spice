@@ -1,0 +1,6 @@
+* SPICE3 file created from test_rm1.ext - technology: ihp-sg13g2
+
+R0 P N 1.430000
+C0 N sub 0.97437f
+C1 P sub 0.97437f
+C2 m1_2000_2400# sub 3.8792f **FLOATING

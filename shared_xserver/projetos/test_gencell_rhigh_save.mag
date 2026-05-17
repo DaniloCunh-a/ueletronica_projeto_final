@@ -1,0 +1,10 @@
+magic
+tech ihp-sg13g2
+timestamp 1778731006
+<< checkpaint >>
+rect -1046 -1046 1208 1294
+use rhigh_92SWMD  R1
+timestamp 1778731006
+transform 1 0 81 0 1 124
+box -127 -170 127 170
+<< end >>
