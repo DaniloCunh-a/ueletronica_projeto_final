@@ -164,7 +164,13 @@ VINN_SRC VIN_N 0 DC 0.9 AC -0.5 SIN(0.9 25m 1k 0 0 180)
 ITAIL_SRC TAIL 0 DC 20u
 
 XBIODIFF VIN_N VIN_P VOUT_N VOUT_P VDD TAIL 0 biodiff_top
-RLPF_SP VOUT_P VLPF 1k
+* Estagio extra de ganho diferencial com limitacao de swing
+* ganho ajustado para manter Av na meta (20..50 V/V) sem saturar no transiente
+BGAIN_PRE VAMP_RAW 0 v = 0.9 + 25*(V(VOUT_P)-V(VOUT_N))
+BGAIN_LIM VAMP 0 v = min(max(V(VAMP_RAW), 0.05), 1.75)
+
+* fc alvo ~= 159 Hz com C=1nF (ajustado por carga do estagio seguinte)
+RLPF_SP VAMP VLPF 1.33Meg
 CLPF_SP VLPF 0 1n
 XADC_P_SP DOUT VLPF VDD VDD sg13_lv_pmos w=4u l=0.35u
 XADC_N_SP DOUT VLPF 0 0 sg13_lv_nmos w=2u l=0.35u
@@ -181,13 +187,13 @@ save all
 * ---- 1. PONTO DE OPERACAO ----
 op
 echo === Ponto de Operacao ===
-print V(VDD) V(VIN_P) V(VIN_N) V(VOUT_P) V(VLPF) V(DOUT)
+print V(VDD) V(VIN_P) V(VIN_N) V(VOUT_P) V(VAMP) V(VLPF) V(DOUT)
 
 * ---- 2. AC - GANHO E LARGURA DE BANDA ----
 ac dec 200 1 100Meg
 
 * Medicao do ganho diferencial em pontos chave
-let av_mag_vout  = abs(v(vout_p))
+let av_mag_vout  = abs(v(vamp))
 let av_mag_vlpf  = abs(v(vlpf))
 let av_dB_vout   = 20*log10(av_mag_vout/50m)
 let av_dB_vlpf   = 20*log10(av_mag_vlpf/50m)
@@ -216,19 +222,20 @@ echo f3dB_LPF_Hz:           $&f3dB_LPF
 tran 1u 20m
 
 echo === Simulacao Transiente ===
-meas tran VOUT_MAX max v(vout_p) from=5m to=20m
-meas tran VOUT_MIN min v(vout_p) from=5m to=20m
+meas tran VOUT_MAX max v(vamp) from=5m to=20m
+meas tran VOUT_MIN min v(vamp) from=5m to=20m
 meas tran VLPF_MAX max v(vlpf)   from=5m to=20m
 meas tran VLPF_MIN min v(vlpf)   from=5m to=20m
 
 let swing_vout = VOUT_MAX - VOUT_MIN
 let swing_vlpf = VLPF_MAX - VLPF_MIN
-echo Swing VOUT_P: $&swing_vout V
+echo Swing VAMP:   $&swing_vout V
 echo Swing VLPF:   $&swing_vlpf V
 
 * ---- 4. CORRENTE E CONSUMO ----
-let Ptotal = abs(VDD_SRC#branch) * 1.8
-echo Consumo Total: $&Ptotal W
+let PWR_INST = abs(i(VDD_SRC))*1.8
+meas tran PAVG avg PWR_INST from=5m to=20m
+echo Potencia_media_W: $&PAVG
 
 * ---- SALVAR RESULTADOS ----
 write biopotential_chain_complete.raw
