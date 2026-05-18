@@ -1,40 +1,43 @@
-# Finalização da Entrega - BioDiff-CMOS
+# Finalizacao da Entrega - BioDiff-CMOS
 
-Status consolidado após execução prática no ambiente WSL + container.
+Status consolidado apos auditoria tecnica dos artefatos em `entrega/`.
 
-## Resumo rápido
-- Simulação pre-layout: concluída.
-- Simulação pós-layout: concluída.
-- Tabela pre vs pós: concluída.
-- Layout/GDS consolidados no pacote de entrega: concluído.
-- LVS: concluído com `Final result: Circuits match uniquely.`
-- DRC: concluído e **clean** (`Total DRC errors found: 0`).
-- Paper final: concluído (`entrega/report/paper_final.pdf`).
+## Resumo rapido
+- Simulacao pre-layout: concluida.
+- Simulacao pos-layout: concluida.
+- Comparacao pre vs pos: concluida.
+- Layout/GDS: consolidados.
+- LVS: concluido com `Final result: Circuits match uniquely.`
+- DRC: concluido com `Total DRC errors found: 0`.
+- Paper final: `entrega/report/paper_final.pdf`.
 
-## Critérios formais do enunciado (PDF)
-Do documento `Microeletrônica-U7C5O3T2 - Desafio de Design de Circuitos Integrados (1).pdf`:
-1. Definição clara do circuito e especificações.
-2. Esquemático/HDL (para analógico: diagrama com W/L).
-3. Simulação funcional pre-layout com formas de onda.
+## Criterios formais do enunciado (PDF)
+Fonte: `docs/Microeletrônica-U7C5O3T2 - Desafio de Design de Circuitos Integrados (1).pdf`
+
+1. Definicao clara do circuito e especificacoes.
+2. Esquematico/HDL (analogico: diagrama com W/L).
+3. Simulacao funcional pre-layout com formas de onda.
 4. Layout respeitando DRC.
-5. Extração de parasitas.
-6. Simulação pós-layout com comparação pre vs pós.
-7. LVS com consistência total.
-8. Relatório final no formato technical paper com:
-- Introdução
-- Metodologia
-- Resultados (prints de todas as etapas)
-- Análise crítica
+5. Extracao de parasitas.
+6. Simulacao pos-layout com comparacao pre vs pos.
+7. LVS com consistencia total.
+8. Relatorio final em formato technical paper.
 
----
+## Evidencias consolidadas
 
-## Evidências geradas (já prontas)
+### Esquematico e sizing
+- `entrega/schematic/biopotential_chain.sch`
+- `entrega/schematic/sizing_table.md`
+- `entrega/schematic/schematic_overview.png`
 
-### Simulação
+### Simulacao
 - `entrega/sim_pre/biopotential_chain_prelayout.spice`
 - `entrega/sim_pre/biopotential_chain_prelayout.log`
+- `entrega/sim_pre/pre_op.txt`
+- `entrega/sim_pre/pre_metrics.md`
 - `entrega/pex_post/biopotential_chain_postlayout_clean.spice`
 - `entrega/pex_post/biopotential_chain_postlayout_clean.log`
+- `entrega/pex_post/post_metrics.md`
 - `entrega/pex_post/pre_vs_post_table.md`
 
 ### Layout / PEX
@@ -43,74 +46,40 @@ Do documento `Microeletrônica-U7C5O3T2 - Desafio de Design de Circuitos Integra
 - `entrega/layout/biodiff_top_build.tcl`
 - `entrega/pex_post/biodiff_extracted.spice`
 
-### Verificação física
-- `entrega/verification/lvs_report.txt` (match)
-- `entrega/verification/drc_report.txt` (0 erros)
+### Verificacao fisica
+- `entrega/verification/lvs_report.txt`
+- `entrega/verification/drc_report.txt`
 - `entrega/verification/verification_summary.md`
 - `entrega/verification/drc_result.png`
 - `entrega/verification/lvs_result.png`
-- `entrega/verification/biodiff_lvs_clean_withloads.spice`
-- `entrega/verification/extract_lvs_clean.log`
 
-### Relatório (rascunho técnico)
-- `entrega/report/resultados_analise_critica.md`
+### Relatorio
 - `entrega/report/paper_final.md`
 - `entrega/report/paper_final.pdf`
-
----
-
-## Métricas atuais (pre vs pós)
-
-Fonte: `shared_xserver/projetos/simulations/pre_vs_post_table.md`
-
-| Métrica | Pre-layout | Pós-layout |
-|---|---:|---:|
-| Av_CORE @1kHz (V/V) | 0.906963 | 0.906963 |
-| f3dB_LPF (Hz) | 186.08 | 186.08 |
-| Potência média (W) | 3.60116E-05 | 3.60116E-05 |
-
-Observação: no fluxo atual não houve degradação entre pre e pós nas métricas extraídas.
-
----
+- `entrega/report/resultados_analise_critica.md`
 
 ## Estado por etapa
-
-- [x] Etapa 0 - Estrutura `entrega/` criada e preenchida.
+- [x] Etapa 0 - Estrutura `entrega/` consolidada.
 - [x] Etapa 1 - Golden pre-layout executado.
-- [x] Etapa 2 - Pós-layout limpo executado.
-- [x] Etapa 3 - Comparação pre vs pós gerada.
-- [x] Etapa 4 - DRC clean (0 erros na execução final).
-- [x] Etapa 5 - LVS concluído e equivalente.
-- [x] Etapa 6 - Figuras finais obrigatórias consolidadas.
+- [x] Etapa 2 - Pos-layout executado.
+- [x] Etapa 3 - Comparacao pre vs pos gerada.
+- [x] Etapa 4 - DRC clean (0 erros).
+- [x] Etapa 5 - LVS fechado (match uniquely).
+- [x] Etapa 6 - Figuras obrigatorias consolidadas.
 - [x] Etapa 7 - Paper final em PDF.
-- [x] Etapa 8 - Validação final de envio em máquina limpa.
 
----
+## Pendencia recomendada (nao bloqueante)
+- Nenhuma pendencia recomendada aberta no momento.
 
-## Encerramento
-Checklist final consolidado:
-- [x] Todos os caminhos e comandos reproduzíveis.
-- [x] DRC/LVS anexados.
-- [x] Tabela pre vs pós anexada.
-- [x] Paper em PDF anexado.
-- [x] Pacote abre em outra máquina sem ajuste manual.
-
-### Auditoria automática
-Use o script abaixo para gerar checklist executável em Markdown:
-
+## Auditoria automatica
 ```bash
 ./scripts/entrega/audit_entrega.sh
 ```
 
-Saída:
+Saida:
 - `entrega/verification/final_delivery_checklist.md`
 
----
-
-## Execução no seu ambiente (importante)
-
-No container iniciado por `make start`, use os caminhos montados em `/home/designer/shared`:
-
+## Execucao no container
 ```bash
 /home/designer/shared/scripts/entrega/run_prelayout.sh
 /home/designer/shared/scripts/entrega/run_postlayout.sh
@@ -118,13 +87,3 @@ No container iniciado por `make start`, use os caminhos montados em `/home/desig
 /home/designer/shared/scripts/entrega/run_drc_detailed.sh
 /home/designer/shared/scripts/entrega/audit_entrega.sh
 ```
-
-Para gerar o paper PDF (quando `pandoc` estiver disponível):
-
-```bash
-/home/designer/shared/scripts/entrega/build_report_pdf.sh \
-  /home/designer/shared/entrega/report/paper_final.md \
-  /home/designer/shared/entrega/report/paper_final.pdf
-```
-
-No host WSL, os mesmos scripts em `./scripts/entrega/*` só funcionam se as ferramentas existirem localmente (`ngspice`, etc.).

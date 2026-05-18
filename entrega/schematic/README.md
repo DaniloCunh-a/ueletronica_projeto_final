@@ -1,10 +1,15 @@
 # schematic
 
-## Coloque aqui
-- `biopotential_chain.sch` (final)
-- símbolos/células usados no esquemático
-- netlist pre-layout de referência (sem PEX)
+Artefatos finais do esquematico da cadeia BioDiff-CMOS.
 
-## Evidência mínima
-- imagem do esquemático completo (`schematic_overview.png`)
-- tabela W/L e correntes de polarização (`sizing_table.md` ou no paper)
+## Arquivos presentes
+- `biopotential_chain.sch`: esquematico fonte (xschem).
+- `sizing_table.md`: tabela de W/L e parametros usados na simulacao entregue.
+- `schematic_overview.png`: captura do esquematico exportada do xschem.
+
+## Evidencia minima (criterio do enunciado)
+- `biopotential_chain.sch` cobre o criterio de diagrama detalhado com dimensoes.
+- `sizing_table.md` consolida W/L e polarizacao.
+
+## Evidencia visual
+- `schematic_overview.png` adicionada ao paper final para evidenciar a etapa de esquematico.

@@ -1,29 +1,24 @@
-# Resultados e Análise Crítica
+# Resultados e Analise Critica
 
-## Resultados de simulação (pre vs pós-layout)
-Tabela consolidada em `pre_vs_post_table.md`:
-
-| Métrica | Pre-layout | Pós-layout |
+## Resultado eletrico consolidado
+| Metrica | Pre-layout | Pos-layout |
 |---|---:|---:|
 | Av_CORE @1kHz (V/V) | 0.906963 | 0.906963 |
 | f3dB_LPF (Hz) | 186.08 | 186.08 |
-| Potência média (W) | 3.60116E-05 | 3.60116E-05 |
+| Potencia media (W) | 3.60116E-05 | 3.60116E-05 |
 
-## Leitura técnica dos resultados
-- Não houve degradação mensurável entre pre e pós-layout nas métricas extraídas do fluxo atual.
-- O valor de `f3dB` em ~186 Hz é consistente com o alvo de filtragem em baixa frequência para cadeia biomédica.
-- O consumo médio extraído (`~36 uW`) indica operação de baixo consumo para o cenário de teste configurado.
+Fonte: `entrega/pex_post/pre_vs_post_table.md`.
 
-## Verificação física
-- `LVS`: **passou** com resultado `Circuits match uniquely`.
-- `DRC`: execução final reporta `0` erros totais (`Total DRC errors found: 0`), portanto o layout está DRC-clean.
+## Leitura tecnica
+- O fluxo final nao mostrou degradacao mensuravel apos PEX.
+- O `f3dB` em torno de 186 Hz atende ao objetivo de baixa frequencia.
+- O consumo medio permaneceu em ~36 uW no cenario de teste adotado.
 
-## Análise crítica
-- O fechamento de LVS confirma coerência topológica entre esquemático de referência e layout extraído (com cargas `rhigh` explícitas na netlist usada para comparação).
-- Com DRC e LVS fechados, o risco técnico remanescente deixa de ser físico e passa a ser de documentação/evidências de entrega.
-- As métricas elétricas pre vs pós-layout permaneceram estáveis no fluxo atual, sem degradação observável nos indicadores extraídos.
+## Fechamento fisico
+- `LVS`: aprovado com `Final result: Circuits match uniquely`.
+- `DRC`: aprovado com `Total DRC errors found: 0`.
 
-## Encerramento
-- As figuras obrigatórias foram consolidadas no pacote de entrega.
-- O paper final foi gerado em `entrega/report/paper_final.pdf`.
-- A auditoria final (`entrega/verification/final_delivery_checklist.md`) registra `Itens pendentes: 0`.
+## Pontos de engenharia observados
+- O principal esforco foi no fechamento de regras fisicas (DRC), com iteracoes no roteamento local.
+- A consistencia de LVS confirma que as alteracoes de layout nao quebraram intencao do esquematico.
+- Como continuidade de validacao, faltam apenas varreduras de robustez (PVT/mismatch), que sao melhoria e nao criterio obrigatorio deste desafio.
