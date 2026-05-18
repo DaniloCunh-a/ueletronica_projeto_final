@@ -36,15 +36,26 @@ feedback clear
 # Differential pair devices
 box 6um 10um 12um 22um
 paint ndiff
-paint nfet
 box 18um 10um 24um 22um
 paint ndiff
+
+# Keep the nfet marker local to gate/channel only.
+# This avoids cont-to-fet spacing issues at source/drain contacts.
+box 8.8um 12.4um 9.6um 19.6um
+paint nfet
+box 20.8um 12.4um 21.6um 19.6um
 paint nfet
 
 # Gates
 box 8.8um 8um 9.6um 24um
 paint poly
 box 20.8um 8um 21.6um 24um
+paint poly
+
+# Local poly landing widening around gate-contact region.
+box 8.7um 22.4um 9.7um 23.6um
+paint poly
+box 20.7um 22.4um 21.7um 23.6um
 paint poly
 
 # Source/drain contacts
@@ -57,14 +68,24 @@ paint ndc
 box 22.6um 11.2um 23.4um 12.0um
 paint ndc
 
+# Ensure robust M1 end-cap overlap on all ndiff contacts.
+box 10.5um 19.9um 11.5um 20.9um
+paint m1
+box 6.5um 11.1um 7.5um 12.1um
+paint m1
+box 18.5um 19.9um 19.5um 20.9um
+paint m1
+box 22.5um 11.1um 23.5um 12.1um
+paint m1
+
 # Gate contacts + stubs
 box 8.8um 22.6um 9.6um 23.4um
 paint pc
 box 20.8um 22.6um 21.6um 23.4um
 paint pc
-box 8.8um 22.8um 9.6um 28.0um
+box 8.7um 22.5um 9.7um 28.0um
 paint m1
-box 20.8um 22.8um 21.6um 28.0um
+box 20.7um 22.5um 21.7um 28.0um
 paint m1
 
 # Tail node (shared source) kept isolated from substrate ties.
@@ -72,17 +93,9 @@ box 6.4um 11.0um 23.6um 12.2um
 paint m1
 
 # Drain routes up to load resistor bottom terminals.
-# Route through the side landing stripes of the pc/rhigh terminal to ensure
-# robust electrical connectivity after layer derivation.
-box 10.2um 20.0um 10.6um 30.0um
+box 10.8um 20.9um 11.2um 28.6um
 paint m1
-box 19.4um 20.0um 19.8um 30.0um
-paint m1
-
-# Bottom landing bars below xpolyres region to join both pc side stripes.
-box 10.2um 29.6um 11.8um 30.0um
-paint m1
-box 18.2um 29.6um 19.8um 30.0um
+box 18.8um 20.9um 19.2um 28.6um
 paint m1
 
 # Explicit high-ohmic poly loads (rhigh)
@@ -91,25 +104,41 @@ paint xres
 box 18um 30um 20um 40um
 paint xres
 
+# Poly landings outside the rhigh body (keeps poly-contact spacing to rhigh).
+box 10.3um 28.2um 11.7um 30.0um
+paint poly
+box 10.3um 40.0um 11.7um 41.8um
+paint poly
+box 18.3um 28.2um 19.7um 30.0um
+paint poly
+box 18.3um 40.0um 19.7um 41.8um
+paint poly
+
 # rhigh terminal contacts (poly contacts) + metal landing
 # Bottom (to drains)
-box 10.4um 30.0um 11.6um 31.2um
+box 10.6um 28.6um 11.4um 29.4um
 paint pc
-box 18.4um 30.0um 19.6um 31.2um
+box 18.6um 28.6um 19.4um 29.4um
 paint pc
-box 10.2um 30.2um 11.8um 31.0um
+box 10.5um 28.5um 11.5um 29.5um
 paint m1
-box 18.2um 30.2um 19.8um 31.0um
+box 18.5um 28.5um 19.5um 29.5um
 paint m1
 
 # Top (to VDD bus)
-box 10.4um 38.8um 11.6um 40.0um
+box 10.6um 40.4um 11.4um 41.2um
 paint pc
-box 18.4um 38.8um 19.6um 40.0um
+box 18.6um 40.4um 19.4um 41.2um
 paint pc
-box 10.2um 39.0um 11.8um 43.0um
+box 10.5um 40.3um 11.5um 43.0um
 paint m1
-box 18.2um 39.0um 19.8um 43.0um
+box 18.5um 40.3um 19.5um 43.0um
+paint m1
+
+# Join drain routes to bottom rhigh pads.
+box 10.8um 28.5um 11.2um 29.5um
+paint m1
+box 18.8um 28.5um 19.2um 29.5um
 paint m1
 
 # VDD horizontal bus feeding both loads
