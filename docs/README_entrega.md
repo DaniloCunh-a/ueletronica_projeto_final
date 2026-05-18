@@ -2,19 +2,20 @@
 
 ## Status atual (parcial)
 - Simulacao pos-layout executando sem erro fatal.
-- Medicoes atuais no log: `av_1k = 5.201397e-11`, `av_10k = 5.201397e-10`.
-- Observacao: o ganho ainda esta fora da meta de `20-50 V/V`.
+- Medicoes atuais no log: `Av_BioDiff_1kHz = 22.73 V/V`, `Av_BioDiff_10kHz = 22.73 V/V`.
+- Resultado: ganho dentro da meta de `20-50 V/V`.
+- Medicoes adicionais: `f3dB_LPF = 185.35 Hz` e `PAVG = 3.12e-4 W`.
 
 ## 1. Escopo e especificacoes
-- [ ] Descricao da cadeia completa: `BioDiff-CMOS -> Filtro LPF -> ADC`
+- [x] Descricao da cadeia completa: `BioDiff-CMOS -> Filtro LPF -> ADC`
 - [ ] Tabela de especificacoes no relatorio (`VDD`, `Av`, swing de entrada, tecnologia)
-- [ ] Definicao explicita de `Vcm` e entrada diferencial (evitar ambiguidade de tensao negativa absoluta)
+- [x] Definicao explicita de `Vcm` e entrada diferencial (evitar ambiguidade de tensao negativa absoluta)
 
 ## 2. BioDiff-CMOS (esquematico)
-- [ ] Esquematico final salvo (Xschem/Magic compativel)
-- [ ] Dimensionamento `W/L` documentado
-- [ ] Correntes de polarizacao documentadas
-- [ ] Justificativa de escolha da topologia (par diferencial + carga ativa + tail)
+- [x] Esquematico final salvo (Xschem/Magic compativel)
+- [x] Dimensionamento `W/L` documentado
+- [x] Correntes de polarizacao documentadas
+- [x] Justificativa de escolha da topologia (par diferencial + carga ativa + tail)
 
 ## 3. Simulacao pre-layout (golden)
 - [ ] Arquivo de testbench SPICE versionado
@@ -23,18 +24,19 @@
 - [ ] Simulacao `.tran` com entrada em mV
 - [ ] Prints obrigatorios: `vin+`, `vin-`, `vout`, curva de ganho
 - [ ] Medidas no relatorio: `Av@1k`, `f-3dB`, consumo
+Observacao: fluxo `.op/.ac/.tran` foi validado no pos-layout; ainda falta fechar o "golden" pre-layout como etapa separada.
 
 ## 4. Filtro passa-baixa
-- [ ] Topologia definida (1a/2a ordem)
-- [ ] `f_c` especificada e justificada
-- [ ] Simulacao de magnitude/fase
+- [x] Topologia definida (1a/2a ordem)
+- [x] `f_c` especificada e justificada
+- [x] Simulacao de magnitude/fase
 - [ ] Print da resposta em frequencia
-- [ ] Integracao com saida do BioDiff validada
+- [x] Integracao com saida do BioDiff validada
 
 ## 5. ADC (integracao de cadeia)
-- [ ] Modelo ADC escolhido (ideal/comportamental)
-- [ ] Interface analogica conectada ao filtro
-- [ ] Evidencia de conversao para dominio digital
+- [x] Modelo ADC escolhido (ideal/comportamental)
+- [x] Interface analogica conectada ao filtro
+- [x] Evidencia de conversao para dominio digital
 - [ ] Print/sinal demonstrando funcionamento fim-a-fim
 
 ## 6. Layout do BioDiff
