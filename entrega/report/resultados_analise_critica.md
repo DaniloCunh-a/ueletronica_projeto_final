@@ -16,15 +16,15 @@ Tabela consolidada em `pre_vs_post_table.md`:
 
 ## Verificação física
 - `LVS`: **passou** com resultado `Circuits match uniquely`.
-- `DRC`: execução atual reporta `74` erros totais; portanto, o layout ainda não está DRC-clean nesta revisão.
+- `DRC`: execução final reporta `0` erros totais (`Total DRC errors found: 0`), portanto o layout está DRC-clean.
 
 ## Análise crítica
 - O fechamento de LVS confirma coerência topológica entre esquemático de referência e layout extraído (com cargas `rhigh` explícitas na netlist usada para comparação).
-- O principal risco remanescente da entrega é físico (DRC), não funcional, já que as simulações elétricas e o LVS estão consistentes.
-- Sem zerar os erros DRC críticos, a entrega fica tecnicamente incompleta para um fluxo de fabricação robusto.
+- Com DRC e LVS fechados, o risco técnico remanescente deixa de ser físico e passa a ser de documentação/evidências de entrega.
+- As métricas elétricas pre vs pós-layout permaneceram estáveis no fluxo atual, sem degradação observável nos indicadores extraídos.
 
 ## Recomendação objetiva para fechamento
-1. Classificar os 74 erros DRC por tipo e região do layout.
-2. Corrigir primeiro violações estruturais (spacing, enclosure, width e contatos/vias).
-3. Reexecutar DRC e atualizar a seção com log final limpo.
-4. Consolidar prints finais (`layout_full`, `drc_result`, `lvs_result`) no paper.
+1. Consolidar as figuras obrigatórias restantes (`layout_full`, `layout_zoom_inputs`, `pre_ac_gain`, `pre_tran_vin_vout`, `post_ac_gain`, `post_tran_vout`, `drc_result`, `lvs_result`).
+2. Finalizar o paper em Markdown com os resultados consolidados.
+3. Gerar o PDF final e anexar em `entrega/report/`.
+4. Rodar `scripts/entrega/audit_entrega.sh` até zerar pendências.

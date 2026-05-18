@@ -8,8 +8,23 @@ Status consolidado após execução prática no ambiente WSL + container.
 - Tabela pre vs pós: concluída.
 - Layout/GDS consolidados no pacote de entrega: concluído.
 - LVS: concluído com `Final result: Circuits match uniquely.`
-- DRC: executado, porém **não clean** (`Total DRC errors found: 74`).
+- DRC: concluído e **clean** (`Total DRC errors found: 0`).
 - Paper final: pendente de fechamento.
+
+## Critérios formais do enunciado (PDF)
+Do documento `Microeletrônica-U7C5O3T2 - Desafio de Design de Circuitos Integrados (1).pdf`:
+1. Definição clara do circuito e especificações.
+2. Esquemático/HDL (para analógico: diagrama com W/L).
+3. Simulação funcional pre-layout com formas de onda.
+4. Layout respeitando DRC.
+5. Extração de parasitas.
+6. Simulação pós-layout com comparação pre vs pós.
+7. LVS com consistência total.
+8. Relatório final no formato technical paper com:
+- Introdução
+- Metodologia
+- Resultados (prints de todas as etapas)
+- Análise crítica
 
 ---
 
@@ -30,7 +45,7 @@ Status consolidado após execução prática no ambiente WSL + container.
 
 ### Verificação física
 - `entrega/verification/lvs_report.txt` (match)
-- `entrega/verification/drc_report.txt` (74 erros)
+- `entrega/verification/drc_report.txt` (0 erros)
 - `entrega/verification/verification_summary.md`
 - `entrega/verification/biodiff_lvs_clean_withloads.spice`
 - `entrega/verification/extract_lvs_clean.log`
@@ -60,7 +75,7 @@ Observação: no fluxo atual não houve degradação entre pre e pós nas métri
 - [x] Etapa 1 - Golden pre-layout executado.
 - [x] Etapa 2 - Pós-layout limpo executado.
 - [x] Etapa 3 - Comparação pre vs pós gerada.
-- [ ] Etapa 4 - DRC clean (executado, mas com 74 erros; pendente correção).
+- [x] Etapa 4 - DRC clean (0 erros na execução final).
 - [x] Etapa 5 - LVS concluído e equivalente.
 - [ ] Etapa 6 - Figuras finais obrigatórias (prints legíveis com legenda).
 - [ ] Etapa 7 - Paper final em PDF.
@@ -70,18 +85,14 @@ Observação: no fluxo atual não houve degradação entre pre e pós nas métri
 
 ## Próximos passos (ordem recomendada)
 
-## 1) Fechar DRC
-Objetivo: reduzir `74` para `0` erros críticos (ou justificar exceções permitidas).
+## 1) DRC (fechado)
+Status atual:
+1. Triagem detalhada executada.
+2. Layout corrigido.
+3. DRC final em `0` erros.
 
-Ações:
-1. Classificar erros do `drc_report.txt` por tipo (spacing, enclosure, width, contatos/vias).
-2. Corrigir layout `biodiff_top.mag`.
-3. Reexecutar DRC.
-4. Atualizar `entrega/verification/drc_report.txt`.
-5. Gerar captura `entrega/verification/drc_result.png`.
-
-Critério de aceite:
-- DRC sem erro crítico pendente para entrega.
+Pendência residual:
+1. Capturar `entrega/verification/drc_result.png` da execução final clean.
 
 ## 2) Consolidar figuras obrigatórias
 Salvar no pacote:
@@ -117,6 +128,16 @@ Checklist final:
 - [ ] Paper em PDF anexado.
 - [ ] Pacote abre em outra máquina sem ajuste manual.
 
+### Auditoria automática
+Use o script abaixo para gerar checklist executável em Markdown:
+
+```bash
+./scripts/entrega/audit_entrega.sh
+```
+
+Saída:
+- `entrega/verification/final_delivery_checklist.md`
+
 ---
 
 ## Execução no seu ambiente (importante)
@@ -127,7 +148,16 @@ No container iniciado por `make start`, use os caminhos montados em `/home/desig
 /home/designer/shared/scripts/entrega/run_prelayout.sh
 /home/designer/shared/scripts/entrega/run_postlayout.sh
 /home/designer/shared/scripts/entrega/extract_metrics.sh
+/home/designer/shared/scripts/entrega/run_drc_detailed.sh
+/home/designer/shared/scripts/entrega/audit_entrega.sh
+```
+
+Para gerar o paper PDF (quando `pandoc` estiver disponível):
+
+```bash
+/home/designer/shared/scripts/entrega/build_report_pdf.sh \
+  /home/designer/shared/entrega/report/paper_final.md \
+  /home/designer/shared/entrega/report/paper_final.pdf
 ```
 
 No host WSL, os mesmos scripts em `./scripts/entrega/*` só funcionam se as ferramentas existirem localmente (`ngspice`, etc.).
-
