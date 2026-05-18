@@ -10,21 +10,20 @@ Base considerada:
 
 ## 1) Criterios do enunciado e status
 
-| Criterio (enunciado) | Status atual | Evidencia | Acao para fechar |
+| Criterio (enunciado) | Status atual | Evidencia | Acao |
 |---|---|---|---|
-| Definicao do circuito e especificacoes | Parcial | `entrega/report/resultados_analise_critica.md` | Consolidar especificacoes-alvo no paper final. |
-| Esquematico/HDL e dimensionamento (W/L) | Parcial | `entrega/schematic/README.md` | Incluir figura do esquematico e tabela W/L no paper. |
-| Simulacao pre-layout com formas de onda | Parcial | logs pre-layout presentes | Gerar `pre_ac_gain.png` e `pre_tran_vin_vout.png`. |
+| Definicao do circuito e especificacoes | OK | `entrega/report/paper_final.md` e `entrega/report/paper_final.pdf` | Fechado. |
+| Esquematico/HDL e dimensionamento (W/L) | OK | `entrega/report/paper_final.md` | Fechado. |
+| Simulacao pre-layout com formas de onda | OK | `entrega/sim_pre/pre_ac_gain.png` e `entrega/sim_pre/pre_tran_vin_vout.png` | Fechado. |
 | Layout fisico e conformidade DRC | OK | `drc_report.txt` com `Total DRC errors found: 0` | Fechado na execucao final de DRC detalhado. |
 | Extracao de parasitas | OK | `entrega/pex_post/biodiff_extracted.spice` | Manter como evidencia no pacote final. |
-| Simulacao pos-layout e comparacao | Parcial | `pre_vs_post_table.md` presente | Gerar `post_ac_gain.png` e `post_tran_vout.png`. |
-| LVS com consistencia total | OK | `lvs_report.txt` (match uniquely) | Gerar `lvs_result.png` para evidencia visual final. |
-| Technical paper final (PDF) | Pendente | sem PDF em `entrega/report/` | Preencher `paper_final.md` e gerar `paper_final.pdf`. |
+| Simulacao pos-layout e comparacao | OK | `entrega/pex_post/post_ac_gain.png`, `entrega/pex_post/post_tran_vout.png` e `entrega/pex_post/pre_vs_post_table.md` | Fechado. |
+| LVS com consistencia total | OK | `lvs_report.txt` e `lvs_result.png` | Fechado. |
+| Technical paper final (PDF) | OK | `entrega/report/paper_final.pdf` | Fechado. |
 
 ## 2) Bloqueadores reais
 
-1. Oito figuras obrigatorias ainda nao foram anexadas.
-2. Paper final em PDF ainda nao foi gerado.
+Nenhum bloqueador ativo. Todos os itens obrigatorios do pacote final foram fechados.
 
 ## 3) Desenvolvimento adicionado para acelerar o fechamento
 
@@ -40,6 +39,6 @@ Base considerada:
 
 ## 4) Sequencia recomendada de fechamento
 
-1. Capturar as 8 figuras obrigatorias e salvar nos caminhos padrao.
-2. Preencher `entrega/report/paper_final.md` e gerar `entrega/report/paper_final.pdf`.
-3. Rodar `scripts/entrega/audit_entrega.sh` ate zerar pendencias.
+Fluxo encerrado. Para revalidacao futura, executar:
+1. `scripts/entrega/audit_entrega.sh`
+2. Conferir `entrega/verification/final_delivery_checklist.md` com `Itens pendentes: 0`.

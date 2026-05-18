@@ -23,8 +23,7 @@ Tabela consolidada em `pre_vs_post_table.md`:
 - Com DRC e LVS fechados, o risco técnico remanescente deixa de ser físico e passa a ser de documentação/evidências de entrega.
 - As métricas elétricas pre vs pós-layout permaneceram estáveis no fluxo atual, sem degradação observável nos indicadores extraídos.
 
-## Recomendação objetiva para fechamento
-1. Consolidar as figuras obrigatórias restantes (`layout_full`, `layout_zoom_inputs`, `pre_ac_gain`, `pre_tran_vin_vout`, `post_ac_gain`, `post_tran_vout`, `drc_result`, `lvs_result`).
-2. Finalizar o paper em Markdown com os resultados consolidados.
-3. Gerar o PDF final e anexar em `entrega/report/`.
-4. Rodar `scripts/entrega/audit_entrega.sh` até zerar pendências.
+## Encerramento
+- As figuras obrigatórias foram consolidadas no pacote de entrega.
+- O paper final foi gerado em `entrega/report/paper_final.pdf`.
+- A auditoria final (`entrega/verification/final_delivery_checklist.md`) registra `Itens pendentes: 0`.

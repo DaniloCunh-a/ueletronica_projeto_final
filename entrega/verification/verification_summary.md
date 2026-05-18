@@ -18,6 +18,6 @@ Verificação física do bloco `biodiff_top` em tecnologia `ihp-sg13g2`.
 - `LVS`: aprovado.
 - `DRC`: aprovado (clean).
 
-## Próxima ação recomendada
-1. Capturar `drc_result.png` da execução clean para anexar no paper.
-2. Capturar `lvs_result.png` para fechar pacote visual de verificação.
+## Status final
+- Evidências visuais consolidadas: `drc_result.png` e `lvs_result.png`.
+- Verificação física encerrada sem pendências.

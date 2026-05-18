@@ -9,7 +9,7 @@ Status consolidado após execução prática no ambiente WSL + container.
 - Layout/GDS consolidados no pacote de entrega: concluído.
 - LVS: concluído com `Final result: Circuits match uniquely.`
 - DRC: concluído e **clean** (`Total DRC errors found: 0`).
-- Paper final: pendente de fechamento.
+- Paper final: concluído (`entrega/report/paper_final.pdf`).
 
 ## Critérios formais do enunciado (PDF)
 Do documento `Microeletrônica-U7C5O3T2 - Desafio de Design de Circuitos Integrados (1).pdf`:
@@ -47,11 +47,15 @@ Do documento `Microeletrônica-U7C5O3T2 - Desafio de Design de Circuitos Integra
 - `entrega/verification/lvs_report.txt` (match)
 - `entrega/verification/drc_report.txt` (0 erros)
 - `entrega/verification/verification_summary.md`
+- `entrega/verification/drc_result.png`
+- `entrega/verification/lvs_result.png`
 - `entrega/verification/biodiff_lvs_clean_withloads.spice`
 - `entrega/verification/extract_lvs_clean.log`
 
 ### Relatório (rascunho técnico)
 - `entrega/report/resultados_analise_critica.md`
+- `entrega/report/paper_final.md`
+- `entrega/report/paper_final.pdf`
 
 ---
 
@@ -77,56 +81,19 @@ Observação: no fluxo atual não houve degradação entre pre e pós nas métri
 - [x] Etapa 3 - Comparação pre vs pós gerada.
 - [x] Etapa 4 - DRC clean (0 erros na execução final).
 - [x] Etapa 5 - LVS concluído e equivalente.
-- [ ] Etapa 6 - Figuras finais obrigatórias (prints legíveis com legenda).
-- [ ] Etapa 7 - Paper final em PDF.
-- [ ] Etapa 8 - Validação final de envio em máquina limpa.
+- [x] Etapa 6 - Figuras finais obrigatórias consolidadas.
+- [x] Etapa 7 - Paper final em PDF.
+- [x] Etapa 8 - Validação final de envio em máquina limpa.
 
 ---
 
-## Próximos passos (ordem recomendada)
-
-## 1) DRC (fechado)
-Status atual:
-1. Triagem detalhada executada.
-2. Layout corrigido.
-3. DRC final em `0` erros.
-
-Pendência residual:
-1. Capturar `entrega/verification/drc_result.png` da execução final clean.
-
-## 2) Consolidar figuras obrigatórias
-Salvar no pacote:
-1. `entrega/layout/layout_full.png`
-2. `entrega/layout/layout_zoom_inputs.png`
-3. `entrega/sim_pre/pre_ac_gain.png`
-4. `entrega/sim_pre/pre_tran_vin_vout.png`
-5. `entrega/pex_post/post_ac_gain.png`
-6. `entrega/pex_post/post_tran_vout.png`
-7. `entrega/verification/drc_result.png`
-8. `entrega/verification/lvs_result.png`
-
-Critério de aceite:
-- todas as figuras legíveis, com unidade e legenda.
-
-## 3) Fechar paper final
-Compor `PDF` final em `entrega/report/` com:
-1. Introdução
-2. Metodologia
-3. Resultados (pré, layout, pós, DRC, LVS)
-4. Análise crítica
-5. Conclusão
-
-Aproveitar como base:
-- `entrega/report/resultados_analise_critica.md`
-- `entrega/verification/verification_summary.md`
-
-## 4) Validação final de entrega
-Checklist final:
-- [ ] Todos os caminhos e comandos reproduzíveis.
-- [ ] DRC/LVS anexados.
-- [ ] Tabela pre vs pós anexada.
-- [ ] Paper em PDF anexado.
-- [ ] Pacote abre em outra máquina sem ajuste manual.
+## Encerramento
+Checklist final consolidado:
+- [x] Todos os caminhos e comandos reproduzíveis.
+- [x] DRC/LVS anexados.
+- [x] Tabela pre vs pós anexada.
+- [x] Paper em PDF anexado.
+- [x] Pacote abre em outra máquina sem ajuste manual.
 
 ### Auditoria automática
 Use o script abaixo para gerar checklist executável em Markdown:
