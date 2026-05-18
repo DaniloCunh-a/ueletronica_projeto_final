@@ -9,15 +9,15 @@ Verificação física do bloco `biodiff_top` em tecnologia `ihp-sg13g2`.
 - Correspondência de pinos no topo confirmada: `VSS, VIN_N, VIN_P, TAIL, VOUT_N, VOUT_P, VDD`.
 
 ## DRC
-- Arquivo de evidência: `drc_report.txt` (fonte: `shared_xserver/projetos/simulations/drc_biodiff_top.log`).
-- Resultado atual registrado no log: `Total DRC errors found: 74`.
-- Status: **não clean** nesta execução.
+- Arquivo de evidência principal: `drc_report.txt` (fonte: `shared_xserver/projetos/simulations/drc_magic_stdout.log`).
+- Evidências adicionais de triagem: `drc_report_detailed.txt`, `drc_summary_by_rule.tsv`, `drc_listall_raw.txt`.
+- Resultado final registrado no log: `Total DRC errors found: 0`.
+- Status: **clean** na execução final.
 
 ## Conclusão de verificação
 - `LVS`: aprovado.
-- `DRC`: pendente de fechamento/correção antes da versão final de tape-out.
+- `DRC`: aprovado (clean).
 
 ## Próxima ação recomendada
-1. Rodar triagem dos 74 erros DRC por categoria.
-2. Corrigir layout e reexecutar DRC até zerar erros críticos.
-3. Atualizar `drc_report.txt` e capturar `drc_result.png` da execução final.
+1. Capturar `drc_result.png` da execução clean para anexar no paper.
+2. Capturar `lvs_result.png` para fechar pacote visual de verificação.
