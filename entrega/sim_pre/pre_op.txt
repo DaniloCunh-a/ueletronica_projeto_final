@@ -1,0 +1,11 @@
+# Pre-layout OP summary
+
+Fonte: `entrega/sim_pre/biopotential_chain_prelayout.log`.
+
+- V(VDD)   = 1.800000e+00 V
+- V(VIN_P) = 9.000000e-01 V
+- V(VIN_N) = 9.000000e-01 V
+- V(VOUT_P)= 1.728343e+00 V
+- V(VOUT_N)= 1.728366e+00 V
+- V(VLPF)  = 1.723974e+00 V
+- V(DOUT)  = 1.532255e-06 V
