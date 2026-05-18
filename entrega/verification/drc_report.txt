@@ -1,0 +1,23 @@
+
+Magic 8.3 revision 613 - Compiled on Tue Mar 17 09:34:20 PM CET 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+Using NULL graphics device.
+Processing system .magicrc file
+Switching to WIRING tool.
+Switching to NETLIST tool.
+Switching to PICK tool.
+Switching to BOX tool.
+Sourcing design .magicrc for technology ihp-sg13g2 ...
+2 Magic internal units = 1 Lambda
+Input style sg13g2(): scaleFactor=2, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    pblock sealcont difffill nemitter hvnemitter hvisodiffres sealvia1 sealvia2 sealvia3 sealvia4 sealvia5 sealvia6 pillar solder seal glass thruvia inductor 
+Scaled tech values by 2 / 1 to match internal grid scaling
+Loading ihp-sg13g2 Device Generator Menu ...
+Using technology "ihp-sg13g2", version 1.0.0
+Cell biodiff_top read from path /home/designer/shared/projetos
+Scaled magic input cell biodiff_top geometry by factor of 2
+Loading DRC CIF style.
+Total DRC errors found: 74
+DRC_TOTAL=

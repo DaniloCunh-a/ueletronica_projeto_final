@@ -1,88 +1,133 @@
-# Checklist de Entrega - Projeto Bio-aquisicao CMOS
+# Finalização da Entrega - BioDiff-CMOS
 
-## Status atual (parcial)
-- Simulacao pos-layout executando sem erro fatal.
-- Medicoes atuais no log: `Av_BioDiff_1kHz = 22.73 V/V`, `Av_BioDiff_10kHz = 22.73 V/V`.
-- Resultado: ganho dentro da meta de `20-50 V/V`.
-- Medicoes adicionais: `f3dB_LPF = 185.35 Hz` e `PAVG = 3.12e-4 W`.
+Status consolidado após execução prática no ambiente WSL + container.
 
-## 1. Escopo e especificacoes
-- [x] Descricao da cadeia completa: `BioDiff-CMOS -> Filtro LPF -> ADC`
-- [ ] Tabela de especificacoes no relatorio (`VDD`, `Av`, swing de entrada, tecnologia)
-- [x] Definicao explicita de `Vcm` e entrada diferencial (evitar ambiguidade de tensao negativa absoluta)
+## Resumo rápido
+- Simulação pre-layout: concluída.
+- Simulação pós-layout: concluída.
+- Tabela pre vs pós: concluída.
+- Layout/GDS consolidados no pacote de entrega: concluído.
+- LVS: concluído com `Final result: Circuits match uniquely.`
+- DRC: executado, porém **não clean** (`Total DRC errors found: 74`).
+- Paper final: pendente de fechamento.
 
-## 2. BioDiff-CMOS (esquematico)
-- [x] Esquematico final salvo (Xschem/Magic compativel)
-- [x] Dimensionamento `W/L` documentado
-- [x] Correntes de polarizacao documentadas
-- [x] Justificativa de escolha da topologia (par diferencial + carga ativa + tail)
+---
 
-## 3. Simulacao pre-layout (golden)
-- [ ] Arquivo de testbench SPICE versionado
-- [ ] Simulacao `.op` com pontos de operacao
-- [ ] Simulacao `.ac` com ganho e banda
-- [ ] Simulacao `.tran` com entrada em mV
-- [ ] Prints obrigatorios: `vin+`, `vin-`, `vout`, curva de ganho
-- [ ] Medidas no relatorio: `Av@1k`, `f-3dB`, consumo
-Observacao: fluxo `.op/.ac/.tran` foi validado no pos-layout; ainda falta fechar o "golden" pre-layout como etapa separada.
+## Evidências geradas (já prontas)
 
-## 4. Filtro passa-baixa
-- [x] Topologia definida (1a/2a ordem)
-- [x] `f_c` especificada e justificada
-- [x] Simulacao de magnitude/fase
-- [ ] Print da resposta em frequencia
-- [x] Integracao com saida do BioDiff validada
+### Simulação
+- `entrega/sim_pre/biopotential_chain_prelayout.spice`
+- `entrega/sim_pre/biopotential_chain_prelayout.log`
+- `entrega/pex_post/biopotential_chain_postlayout_clean.spice`
+- `entrega/pex_post/biopotential_chain_postlayout_clean.log`
+- `entrega/pex_post/pre_vs_post_table.md`
 
-## 5. ADC (integracao de cadeia)
-- [x] Modelo ADC escolhido (ideal/comportamental)
-- [x] Interface analogica conectada ao filtro
-- [x] Evidencia de conversao para dominio digital
-- [ ] Print/sinal demonstrando funcionamento fim-a-fim
+### Layout / PEX
+- `entrega/layout/biodiff_top.mag`
+- `entrega/layout/biodiff.gds`
+- `entrega/layout/biodiff_top_build.tcl`
+- `entrega/pex_post/biodiff_extracted.spice`
 
-## 6. Layout do BioDiff
-- [x] Celula de layout final salva (`.mag`)
-- [x] Exportacao GDS gerada (`.gds`)
-- [x] Simetria do par diferencial aplicada
-- [x] Roteamento critico balanceado nas entradas diferenciais
-- [ ] Print do layout completo
+### Verificação física
+- `entrega/verification/lvs_report.txt` (match)
+- `entrega/verification/drc_report.txt` (74 erros)
+- `entrega/verification/verification_summary.md`
+- `entrega/verification/biodiff_lvs_clean_withloads.spice`
+- `entrega/verification/extract_lvs_clean.log`
 
-## 7. DRC
-- [ ] DRC executado na tecnologia correta (`ihp-sg13g2`/equivalente)
-- [ ] Relatorio DRC anexado
-- [ ] `0` erros criticos (ou justificativa de excecoes, se permitido)
-- [ ] Print da execucao/resultado DRC
+### Relatório (rascunho técnico)
+- `entrega/report/resultados_analise_critica.md`
 
-## 8. Extracao de parasitas + pos-layout
-- [x] Netlist extraido (`*_extracted.spice`) gerado
-- [x] Confirmacao de parasitas `C` e `R`
-- [x] Testbench pos-layout configurado com `.include` correto
-- [x] Simulacao pos-layout `.ac` e `.tran`
-- [ ] Prints pos-layout obrigatorios
-- [ ] Tabela comparativa pre vs pos-layout (`Av`, `f_c`, consumo, offset)
+---
 
-## 9. LVS
-- [ ] LVS rodado entre esquematico e layout
-- [ ] Relatorio LVS anexado
-- [ ] Status `LVS clean` (ou lista de correcoes realizadas)
+## Métricas atuais (pre vs pós)
 
-## 10. Organizacao dos arquivos para entrega
-- [ ] `schematic/` (esquematicos e simbolos)
-- [ ] `sim_pre/` (testbenches e logs pre-layout)
-- [ ] `layout/` (`.mag`, `.gds`, screenshots)
-- [ ] `pex_post/` (netlist extraido, testbench e logs pos-layout)
-- [ ] `verification/` (DRC/LVS reports)
-- [ ] `report/` (PDF final + figuras)
+Fonte: `shared_xserver/projetos/simulations/pre_vs_post_table.md`
 
-## 11. Relatorio tecnico (paper)
-- [ ] Introducao (motivacao bio-sinal na pele)
-- [ ] Metodologia (ferramentas e fluxo)
-- [ ] Resultados (pre, layout, pos, DRC, LVS)
-- [ ] Analise critica de parasitas e roteamento
-- [ ] Conclusao com aderencia as metas (`Av 20-50 V/V`, faixa de operacao)
+| Métrica | Pre-layout | Pós-layout |
+|---|---:|---:|
+| Av_CORE @1kHz (V/V) | 0.906963 | 0.906963 |
+| f3dB_LPF (Hz) | 186.08 | 186.08 |
+| Potência média (W) | 3.60116E-05 | 3.60116E-05 |
 
-## 12. Validacao final antes de enviar
-- [x] Todos os comandos reproduziveis
-- [x] Caminhos de include sem placeholder
-- [ ] Figuras legiveis e com legenda
-- [x] Valores numericos coerentes entre texto e log
-- [ ] Pacote final abre em outra maquina sem ajuste manual
+Observação: no fluxo atual não houve degradação entre pre e pós nas métricas extraídas.
+
+---
+
+## Estado por etapa
+
+- [x] Etapa 0 - Estrutura `entrega/` criada e preenchida.
+- [x] Etapa 1 - Golden pre-layout executado.
+- [x] Etapa 2 - Pós-layout limpo executado.
+- [x] Etapa 3 - Comparação pre vs pós gerada.
+- [ ] Etapa 4 - DRC clean (executado, mas com 74 erros; pendente correção).
+- [x] Etapa 5 - LVS concluído e equivalente.
+- [ ] Etapa 6 - Figuras finais obrigatórias (prints legíveis com legenda).
+- [ ] Etapa 7 - Paper final em PDF.
+- [ ] Etapa 8 - Validação final de envio em máquina limpa.
+
+---
+
+## Próximos passos (ordem recomendada)
+
+## 1) Fechar DRC
+Objetivo: reduzir `74` para `0` erros críticos (ou justificar exceções permitidas).
+
+Ações:
+1. Classificar erros do `drc_report.txt` por tipo (spacing, enclosure, width, contatos/vias).
+2. Corrigir layout `biodiff_top.mag`.
+3. Reexecutar DRC.
+4. Atualizar `entrega/verification/drc_report.txt`.
+5. Gerar captura `entrega/verification/drc_result.png`.
+
+Critério de aceite:
+- DRC sem erro crítico pendente para entrega.
+
+## 2) Consolidar figuras obrigatórias
+Salvar no pacote:
+1. `entrega/layout/layout_full.png`
+2. `entrega/layout/layout_zoom_inputs.png`
+3. `entrega/sim_pre/pre_ac_gain.png`
+4. `entrega/sim_pre/pre_tran_vin_vout.png`
+5. `entrega/pex_post/post_ac_gain.png`
+6. `entrega/pex_post/post_tran_vout.png`
+7. `entrega/verification/drc_result.png`
+8. `entrega/verification/lvs_result.png`
+
+Critério de aceite:
+- todas as figuras legíveis, com unidade e legenda.
+
+## 3) Fechar paper final
+Compor `PDF` final em `entrega/report/` com:
+1. Introdução
+2. Metodologia
+3. Resultados (pré, layout, pós, DRC, LVS)
+4. Análise crítica
+5. Conclusão
+
+Aproveitar como base:
+- `entrega/report/resultados_analise_critica.md`
+- `entrega/verification/verification_summary.md`
+
+## 4) Validação final de entrega
+Checklist final:
+- [ ] Todos os caminhos e comandos reproduzíveis.
+- [ ] DRC/LVS anexados.
+- [ ] Tabela pre vs pós anexada.
+- [ ] Paper em PDF anexado.
+- [ ] Pacote abre em outra máquina sem ajuste manual.
+
+---
+
+## Execução no seu ambiente (importante)
+
+No container iniciado por `make start`, use os caminhos montados em `/home/designer/shared`:
+
+```bash
+/home/designer/shared/scripts/entrega/run_prelayout.sh
+/home/designer/shared/scripts/entrega/run_postlayout.sh
+/home/designer/shared/scripts/entrega/extract_metrics.sh
+```
+
+No host WSL, os mesmos scripts em `./scripts/entrega/*` só funcionam se as ferramentas existirem localmente (`ngspice`, etc.).
+
