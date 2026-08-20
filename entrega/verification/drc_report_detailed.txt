@@ -1,0 +1,8 @@
+# DRC detailed report
+# cell: biodiff_top
+# total: 0
+
+Resumo:
+- classes: 0
+- violacoes mapeadas: 0
+- total reportado por drc count: 0

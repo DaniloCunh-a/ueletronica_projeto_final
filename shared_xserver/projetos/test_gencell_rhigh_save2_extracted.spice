@@ -1,0 +1,15 @@
+* NGSPICE file created from test_gencell_rhigh_save2.ext - technology: ihp-sg13g2
+
+.subckt rhigh_2JWUML R1 R2 sub
+X0 R1 R2 sub rhigh l=10u w=2u
+C0 R2 a_n200_n1000# 0.14077f
+C1 R1 a_n200_n1000# 0.14077f
+C2 R2 sub 0.41402f
+C3 R1 sub 0.41402f
+C4 a_n200_n1000# sub 2.6394f $ **FLOATING
+.ends
+
+.subckt test_gencell_rhigh_save2
+XR1 R1/R1 R1/R2 sub rhigh_2JWUML
+.ends
+

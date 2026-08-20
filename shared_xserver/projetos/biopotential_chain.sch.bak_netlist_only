@@ -1,0 +1,54 @@
+v {xschem version=3.4.6 file_version=1.2}
+G {}
+K {}
+V {}
+S {}
+E {}
+C {devices/title.sym} -20 440 0 0 {name=l0 author="BioPotential Chain - Clean Netlist TB"}
+C {simulator_commands_shown.sym} 20 40 0 0 {name=NGSPICE_TB
+simulator=ngspice
+only_toplevel=false
+value="
+* BioPotential chain explicit testbench (netlist-driven)
+* Avoids floating/open graphical nets from broken symbol pin wiring.
+
+.include /home/designer/shared/verification/simulations/ihp-sg13g2/biodiff_extracted.spice
+
+.lib /opt/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib mos_tt
+.lib /opt/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerRES.lib res_typ
+.lib /opt/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerCAP.lib cap_typ
+
+.param temp=27
+.option TEMP=27
+.option warn=1
+
+* Supplies and differential input around 0.9V common-mode
+VDD_SRC VDD 0 1.8
+VINN_SRC VIN_N 0 dc 0.9 ac -0.5 sin(0.9 0.05 1k 0 0 180)
+VINP_SRC VIN_P 0 dc 0.9 ac 0.5 sin(0.9 0.05 1k)
+
+* Tail bias
+ITAIL TAIL 0 DC 20u
+
+* BioDiff extracted core (post-layout aware)
+XBIODIFF VIN_N VIN_P VOUT_N VOUT_P VDD TAIL 0 biodiff_top
+
+* LPF stage
+XRLPF VOUT_P VLPF 0 rhigh w=0.5e-6 l=12e-6 m=1 b=0
+XCLPF VLPF 0 cap_cmim w=20e-6 l=20e-6 m=1
+
+* Simple ADC front-end (inverter-like decision stage)
+XMADC_P DOUT VLPF VDD VDD sg13_lv_pmos w=4u l=0.35u ng=1 m=1
+XMADC_N DOUT VLPF 0 0 sg13_lv_nmos w=2u l=0.35u ng=1 m=1
+
+.control
+save all
+op
+ac dec 100 1 100Meg
+let av_mag = abs(v(vout_p))
+meas ac av_1k  find av_mag at=1k
+meas ac av_10k find av_mag at=10k
+tran 10u 10m
+write biopotential_chain.raw
+.endc
+"}

@@ -1,0 +1,13 @@
+* BioDiff-CMOS post-layout characterization wrapper.
+.lib /opt/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib mos_tt
+.lib /opt/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerRES.lib res_typ
+.lib /opt/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerCAP.lib cap_typ
+
+.include /home/designer/shared/verification/simulations/ihp-sg13g2/biodiff_extracted.spice
+
+.subckt biodiff_dut VIN_N VIN_P VOUT_N VOUT_P VDD TAIL VSS
+XCORE VIN_N VIN_P VOUT_N VOUT_P VDD TAIL VSS biodiff_top
+.ends
+
+.include biodiff_characterization_common.inc
+.end

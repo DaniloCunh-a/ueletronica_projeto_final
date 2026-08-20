@@ -1,0 +1,91 @@
+* ============================================================
+* BIOPOTENTIAL CHAIN - PRE-LAYOUT GOLDEN (IHP SG13G2)
+* BioDiff core idealizado (sem PEX) -> LPF -> ADC
+* ============================================================
+
+.lib /opt/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib mos_tt
+.lib /opt/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerRES.lib res_typ
+.lib /opt/pdks/ihp-sg13g2/libs.tech/ngspice/models/cornerCAP.lib cap_typ
+
+.option TEMP=27
+.option warn=1
+.option method=gear
+
+* ------------------------------------------------------------
+* Pre-layout core (sem parasitas extraidos)
+* ------------------------------------------------------------
+.subckt biodiff_top_pre VIN_N VIN_P VOUT_N VOUT_P VDD TAIL VSS
+X0 TAIL VIN_P VOUT_P VSS sg13_lv_nmos ad=0.64p pd=3.2u as=0.64p ps=3.2u w=3.2u l=0.8u
+X1 VOUT_N VIN_N TAIL VSS sg13_lv_nmos ad=0.64p pd=3.2u as=0.64p ps=3.2u w=3.2u l=0.8u
+XLOAD_N VDD VOUT_N VSS rhigh l=10u w=2u
+XLOAD_P VDD VOUT_P VSS rhigh l=10u w=2u
+.ends
+
+* ------------------------------------------------------------
+* Stimulus and signal chain
+* ------------------------------------------------------------
+VDD_SRC VDD 0 1.8
+VINP_SRC VIN_P 0 DC 0.9 AC 0.5 SIN(0.9 25m 1k 0 0 0)
+VINN_SRC VIN_N 0 DC 0.9 AC -0.5 SIN(0.9 25m 1k 0 0 180)
+ITAIL_SRC TAIL 0 DC 20u
+
+XBIODIFF VIN_N VIN_P VOUT_N VOUT_P VDD TAIL 0 biodiff_top_pre
+
+RLPF_SP VOUT_P VLPF 1.33Meg
+CLPF_SP VLPF 0 1n
+XADC_P_SP DOUT VLPF VDD VDD sg13_lv_pmos w=4u l=0.35u
+XADC_N_SP DOUT VLPF 0 0 sg13_lv_nmos w=2u l=0.35u
+XBUF_P_SP DOUT_BUF DOUT VDD VDD sg13_lv_pmos w=8u l=0.35u
+XBUF_N_SP DOUT_BUF DOUT 0 0 sg13_lv_nmos w=4u l=0.35u
+
+.control
+save all
+set wr_singlescale
+
+* 1) OP
+op
+print V(VDD) V(VIN_P) V(VIN_N) V(VOUT_P) V(VOUT_N) V(VLPF) V(DOUT)
+
+* 2) AC
+ac dec 200 1 100Meg
+let vdiff_in  = abs(v(vin_p)-v(vin_n))
+let vdiff_out = abs(v(vout_p)-v(vout_n))
+let av_core   = vdiff_out/vdiff_in
+let av_lpf    = abs(v(vlpf))/vdiff_in
+
+meas ac Av_CORE_1kHz    find av_core at=1k
+meas ac Av_CORE_10kHz   find av_core at=10k
+meas ac Av_LPF_1Hz      find av_lpf  at=1
+meas ac Av_LPF_100Hz    find av_lpf  at=100
+* Referencia de -3 dB: ganho de baixa frequencia, ainda na banda passante.
+* Usar 100 Hz como referencia deslocava artificialmente o corte para ~186 Hz.
+let av_lpf_3db = Av_LPF_1Hz*0.70710678
+meas ac f3dB_LPF when av_lpf=av_lpf_3db fall=1
+
+echo === PRELAYOUT AC ===
+echo Av_CORE_1kHz_VV:  $&Av_CORE_1kHz
+echo Av_CORE_10kHz_VV: $&Av_CORE_10kHz
+echo Av_LPF_1Hz_VV:    $&Av_LPF_1Hz
+echo Av_LPF_100Hz_VV:  $&Av_LPF_100Hz
+echo f3dB_LPF_Hz:      $&f3dB_LPF
+wrdata pre_ac_response.tsv av_core av_lpf
+
+* 3) TRAN
+tran 1u 20m
+meas tran VOUTP_MAX max v(vout_p) from=5m to=20m
+meas tran VOUTP_MIN min v(vout_p) from=5m to=20m
+meas tran VLPF_MAX  max v(vlpf)   from=5m to=20m
+meas tran VLPF_MIN  min v(vlpf)   from=5m to=20m
+let swing_voutp = VOUTP_MAX - VOUTP_MIN
+let swing_vlpf  = VLPF_MAX - VLPF_MIN
+wrdata pre_tran_response.tsv v(vin_p) v(vin_n) v(vout_p) v(vout_n) v(vlpf)
+
+* 4) POWER
+let PWR_INST = abs(i(VDD_SRC))*1.8
+meas tran PAVG avg PWR_INST from=5m to=20m
+echo Potencia_media_W: $&PAVG
+
+write biopotential_chain_prelayout.raw
+.endc
+
+.end

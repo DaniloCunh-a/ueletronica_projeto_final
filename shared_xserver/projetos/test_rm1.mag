@@ -1,0 +1,16 @@
+magic
+tech ihp-sg13g2
+timestamp 1778729680
+<< checkpaint >>
+rect 0 -400 2200 5400
+<< metal1 >>
+rect 1000 3800 1200 4400
+rect 1000 600 1200 1200
+<< rmetal1 >>
+rect 1000 1200 1200 3800
+<< labels >>
+rlabel metal1 1020 4320 1180 4400 1 P
+port 1 n
+rlabel metal1 1020 600 1180 680 1 N
+port 2 n
+<< end >>

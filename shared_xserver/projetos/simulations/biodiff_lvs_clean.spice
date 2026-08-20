@@ -1,0 +1,7 @@
+* NGSPICE file created from biodiff_top.ext - technology: ihp-sg13g2
+
+.subckt biodiff_top VIN_N VIN_P VOUT_N VOUT_P VDD TAIL VSS
+X0 TAIL VIN_P VOUT_P VSS sg13_lv_nmos ad=0.64p pd=3.2u as=0.64p ps=3.2u w=3.2u l=0.8u
+X1 VOUT_N VIN_N TAIL VSS sg13_lv_nmos ad=0.64p pd=3.2u as=0.64p ps=3.2u w=3.2u l=0.8u
+.ends
+

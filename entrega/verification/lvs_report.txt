@@ -1,0 +1,37 @@
+
+Circuit 1 cell sg13_lv_nmos and Circuit 2 cell sg13_lv_nmos are black boxes.
+Equate elements:  no current cell.
+Device classes sg13_lv_nmos and sg13_lv_nmos are equivalent.
+
+Circuit 1 cell rhigh and Circuit 2 cell rhigh are black boxes.
+Equate elements:  no current cell.
+Device classes rhigh and rhigh are equivalent.
+
+Subcircuit summary:
+Circuit 1: biodiff_top                     |Circuit 2: biodiff_top_pre                 
+-------------------------------------------|-------------------------------------------
+sg13_lv_nmos (2)                           |sg13_lv_nmos (2)                           
+rhigh (2)                                  |rhigh (2)                                  
+Number of devices: 4                       |Number of devices: 4                       
+Number of nets: 7                          |Number of nets: 7                          
+---------------------------------------------------------------------------------------
+Resolving symmetries by property value.
+Resolving symmetries by pin name.
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: biodiff_top                     |Circuit 2: biodiff_top_pre                 
+-------------------------------------------|-------------------------------------------
+VSS                                        |VSS                                        
+VIN_N                                      |VIN_N                                      
+VIN_P                                      |VIN_P                                      
+TAIL                                       |TAIL                                       
+VOUT_N                                     |VOUT_N                                     
+VOUT_P                                     |VOUT_P                                     
+VDD                                        |VDD                                        
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes biodiff_top and biodiff_top_pre are equivalent.
+
+Final result: Circuits match uniquely.
+.

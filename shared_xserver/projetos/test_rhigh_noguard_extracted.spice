@@ -1,0 +1,11 @@
+* NGSPICE file created from test_rhigh_noguard.ext - technology: ihp-sg13g2
+
+.subckt test_rhigh_noguard P N VSS
+X0 P N VSS rhigh l=30u w=2u
+C0 N a_2000_2000# 0.07774f
+C1 P a_2000_2000# 0.07774f
+C2 N VSS 0.92073f
+C3 P VSS 0.92073f
+C4 a_2000_2000# VSS 7.76394f $ **FLOATING
+.ends
+

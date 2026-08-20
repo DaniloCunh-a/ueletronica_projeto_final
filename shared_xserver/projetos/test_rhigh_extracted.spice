@@ -1,0 +1,11 @@
+* NGSPICE file created from test_rhigh.ext - technology: ihp-sg13g2
+
+.subckt test_rhigh P N
+X0 P N sub rhigh l=30u w=2u
+C0 N a_2000_2000# 0.07774f
+C1 P a_2000_2000# 0.07774f
+C2 N sub 0.92073f
+C3 P sub 0.92073f
+C4 a_2000_2000# sub 7.73765f $ **FLOATING
+.ends
+
