@@ -44,9 +44,10 @@ if [ ! -f "$OUTPUT_SPICE" ]; then
   exit 3
 fi
 
-# If the extractor does not emit explicit rhigh devices for biodiff_top,
-# inject the intended load devices so the post-layout subckt reflects
-# the full BioDiff architecture (diff pair + resistive loads + tail bias pin).
+FALLBACK_RHIGH=0
+
+# Compatibility fallback. This does not turn the result into a full PEX:
+# the loads below are reconstructed from design intent, not extracted devices.
 if grep -Eq '^\.subckt[[:space:]]+biodiff_top[[:space:]]' "$OUTPUT_SPICE" \
   && ! grep -Eq '[[:space:]]rhigh([[:space:]]|$)' "$OUTPUT_SPICE"; then
   PATCHED="${OUTPUT_SPICE}.patched"
@@ -61,7 +62,8 @@ if grep -Eq '^\.subckt[[:space:]]+biodiff_top[[:space:]]' "$OUTPUT_SPICE" \
     { print }
   ' "$OUTPUT_SPICE" > "$PATCHED"
   mv "$PATCHED" "$OUTPUT_SPICE"
-  echo "INFO: Injected fallback rhigh loads into biodiff_top extracted netlist."
+  FALLBACK_RHIGH=1
+  echo "WARNING: Reconstructed two rhigh loads; Magic did not extract them from layout."
 fi
 
 NSUBCKT="$(grep -Ei '^\.subckt' "$OUTPUT_SPICE" | wc -l || true)"
@@ -71,3 +73,6 @@ echo "INFO: Done: $OUTPUT_SPICE"
 echo "INFO: Subcircuits:          $NSUBCKT"
 echo "INFO: Parasitic capacitors: $NCAP"
 echo "INFO: Parasitic resistors:  $NRES"
+if [ "$FALLBACK_RHIGH" -eq 1 ] || [ "$NRES" -eq 0 ]; then
+  echo "WARNING: Output is a capacitive/hybrid post-layout model, not a complete RC PEX."
+fi
