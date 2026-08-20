@@ -29,6 +29,7 @@ XBUF_N_SP DOUT_BUF DOUT 0 0 sg13_lv_nmos w=4u l=0.35u
 
 .control
 save all
+set wr_singlescale
 
 op
 print V(VDD) V(VIN_P) V(VIN_N) V(VOUT_P) V(VOUT_N) V(VLPF) V(DOUT)
@@ -41,15 +42,20 @@ let av_lpf    = abs(v(vlpf))/vdiff_in
 
 meas ac Av_CORE_1kHz    find av_core at=1k
 meas ac Av_CORE_10kHz   find av_core at=10k
+meas ac Av_LPF_1Hz      find av_lpf  at=1
 meas ac Av_LPF_100Hz    find av_lpf  at=100
-let av_lpf_3db = Av_LPF_100Hz*0.707
+* Referencia de -3 dB: ganho de baixa frequencia, ainda na banda passante.
+* Usar 100 Hz como referencia deslocava artificialmente o corte para ~186 Hz.
+let av_lpf_3db = Av_LPF_1Hz*0.70710678
 meas ac f3dB_LPF when av_lpf=av_lpf_3db fall=1
 
 echo === POSTLAYOUT AC ===
 echo Av_CORE_1kHz_VV:  $&Av_CORE_1kHz
 echo Av_CORE_10kHz_VV: $&Av_CORE_10kHz
+echo Av_LPF_1Hz_VV:    $&Av_LPF_1Hz
 echo Av_LPF_100Hz_VV:  $&Av_LPF_100Hz
 echo f3dB_LPF_Hz:      $&f3dB_LPF
+wrdata post_ac_response.tsv av_core av_lpf
 
 tran 1u 20m
 meas tran VOUTP_MAX max v(vout_p) from=5m to=20m
@@ -58,6 +64,7 @@ meas tran VLPF_MAX  max v(vlpf)   from=5m to=20m
 meas tran VLPF_MIN  min v(vlpf)   from=5m to=20m
 let swing_voutp = VOUTP_MAX - VOUTP_MIN
 let swing_vlpf  = VLPF_MAX - VLPF_MIN
+wrdata post_tran_response.tsv v(vin_p) v(vin_n) v(vout_p) v(vout_n) v(vlpf)
 
 let PWR_INST = abs(i(VDD_SRC))*1.8
 meas tran PAVG avg PWR_INST from=5m to=20m

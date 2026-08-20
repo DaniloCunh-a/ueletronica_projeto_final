@@ -1,0 +1,11 @@
+Stage	Case	Models	VDD_V	Temp_C	Av_CORE_1kHz_VV	f3dB_LPF_Hz	Pavg_W
+pre	TT_nom	mos_tt/res_typ/cap_typ	1.80	27	0.906963	120.884	3.60116E-05
+pre	SS_low_hot	mos_ss/res_wcs/cap_wcs	1.62	85	0.823131	119.422	3.24092E-05
+pre	FF_high_cold	mos_ff/res_bcs/cap_bcs	1.98	-40	1.00514	124.297	3.96311E-05
+pre	SF_low_hot	mos_sf/res_wcs/cap_wcs	1.62	85	0.828097	119.809	3.24277E-05
+pre	FS_high_cold	mos_fs/res_bcs/cap_bcs	1.98	-40	0.996462	122.097	3.96159E-05
+post	TT_nom	mos_tt/res_typ/cap_typ	1.80	27	0.906963	120.884	3.60116E-05
+post	SS_low_hot	mos_ss/res_wcs/cap_wcs	1.62	85	0.823131	119.422	3.24092E-05
+post	FF_high_cold	mos_ff/res_bcs/cap_bcs	1.98	-40	1.00514	124.297	3.96311E-05
+post	SF_low_hot	mos_sf/res_wcs/cap_wcs	1.62	85	0.828097	119.809	3.24277E-05
+post	FS_high_cold	mos_fs/res_bcs/cap_bcs	1.98	-40	0.99646	122.097	3.96159E-05
