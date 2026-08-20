@@ -1,23 +1,20 @@
-# Verification Summary - BioDiff-CMOS
-
-## Escopo
-Verificação física do bloco `biodiff_top` em tecnologia `ihp-sg13g2`.
-
-## LVS
-- Arquivo de evidência: `lvs_report.txt` (fonte: `shared_xserver/projetos/simulations/lvs_biodiff_top_clean.log`).
-- Resultado final: `Final result: Circuits match uniquely.`
-- Correspondência de pinos no topo confirmada: `VSS, VIN_N, VIN_P, TAIL, VOUT_N, VOUT_P, VDD`.
+# Resumo da verificação física
 
 ## DRC
-- Arquivo de evidência principal: `drc_report.txt` (fonte: `shared_xserver/projetos/simulations/drc_magic_stdout.log`).
-- Evidências adicionais de triagem: `drc_report_detailed.txt`, `drc_summary_by_rule.tsv`, `drc_listall_raw.txt`.
-- Resultado final registrado no log: `Total DRC errors found: 0`.
-- Status: **clean** na execução final.
 
-## Conclusão de verificação
-- `LVS`: aprovado.
-- `DRC`: aprovado (clean).
+- Ferramenta: Magic 8.3.613.
+- Tecnologia: IHP SG13G2.
+- Evidência: `drc_report.txt`.
+- Resultado: `Total DRC errors found: 0` no conjunto de regras executado.
 
-## Status final
-- Evidências visuais consolidadas: `drc_result.png` e `lvs_result.png`.
-- Verificação física encerrada sem pendências.
+## LVS
+
+- Ferramenta: Netgen 1.5.293.
+- Evidência: `lvs_report.txt`.
+- Resultado: `Final result: Circuits match uniquely.`
+- Pinos: `VSS`, `VIN_N`, `VIN_P`, `TAIL`, `VOUT_N`, `VOUT_P` e `VDD`.
+- Dispositivos: dois `sg13_lv_nmos` e dois `rhigh`, tratados como classes caixa-preta equivalentes.
+
+## Interpretação
+
+O DRC confirma ausência de violações reportadas pelo deck executado. O LVS confirma equivalência topológica e de conectividade. Esses resultados não caracterizam ganho, ruído, robustez PVT, fabricabilidade além do deck ou comportamento em silício.

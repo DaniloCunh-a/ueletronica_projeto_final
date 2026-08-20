@@ -53,10 +53,20 @@ dkms.conf
 
 # Python/Jupyter
 **/.ipynb_checkpoints
+**/__pycache__/
+*.py[cod]
 *.log
 **/_build_logs
 *.raw
 **/run
+
+# LaTeX intermediates
+*.aux
+*.fls
+*.fdb_latexmk
+*.out
+*.synctex.gz
+docs/cbeb2026/main.pdf
 
 # env file
 .env

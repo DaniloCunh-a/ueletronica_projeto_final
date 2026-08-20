@@ -1,35 +1,29 @@
-# verification
+# Verificação física
 
-## Conteúdo atual
-- `drc_report.txt`: log de DRC mais recente.
-- `lvs_report.txt`: log de LVS final (`match uniquely`).
-- `verification_summary.md`: resumo executivo do status de verificação.
-- `gap_analysis.md`: lacunas abertas por critério do enunciado.
+## Resultados
 
-## Status
-- LVS: aprovado.
-- DRC: aprovado (execução final reporta 0 erros totais).
+- DRC: `Total DRC errors found: 0` no deck executado.
+- LVS: `Final result: Circuits match uniquely.`
+- Pinos comparados: `VSS`, `VIN_N`, `VIN_P`, `TAIL`, `VOUT_N`, `VOUT_P` e `VDD`.
+- Instâncias comparadas: dois `sg13_lv_nmos` e dois `rhigh`.
 
-## Evidência mínima para fechamento
-- `drc_result.png` (execução final limpa ou com justificativas permitidas).
-- `lvs_result.png` (captura da execução limpa).
+No LVS, as classes `sg13_lv_nmos` e `rhigh` foram tratadas como caixas-pretas equivalentes. O resultado comprova consistência topológica e de conectividade, não desempenho elétrico.
 
-## Comandos úteis
-### 1) Rodar DRC detalhado (no container)
+## Evidências
+
+- `drc_report.txt`, `drc_report_detailed.txt`, `drc_summary_by_rule.tsv` e `drc_listall_raw.txt`.
+- `lvs_report.txt`.
+- `final_delivery_checklist.md`.
+
+DRC dentro do contêiner:
+
 ```bash
-/home/designer/shared/scripts/entrega/run_drc_detailed.sh
+cd /home/designer/shared
+./scripts/entrega/run_drc_detailed.sh
 ```
 
-Arquivos gerados:
-- `drc_magic_stdout.log`
-- `drc_listall_raw.txt`
-- `drc_summary_by_rule.tsv`
-- `drc_report_detailed.txt`
+Auditoria final no host:
 
-### 2) Gerar checklist final automático
 ```bash
-/home/designer/shared/scripts/entrega/audit_entrega.sh
+./scripts/entrega/audit_entrega.sh
 ```
-
-Saída:
-- `final_delivery_checklist.md`
